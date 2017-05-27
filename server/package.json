@@ -1,0 +1,28 @@
+{
+  "name": "storiesof-server",
+  "version": "1.0.0",
+  "description": "GraphQL API to handle storybook build requests",
+  "main": "index.js",
+  "scripts": {
+    "start": "PORT=4000 node index.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mnmtanish/storiesof.git"
+  },
+  "keywords": [
+    "storybook"
+  ],
+  "author": "Muhammed Thanish <mnmtanish@gmail.com> (http://thanish.me/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mnmtanish/storiesof/issues"
+  },
+  "homepage": "https://github.com/mnmtanish/storiesof#readme",
+  "dependencies": {
+    "express": "^4.15.3",
+    "express-graphql": "^0.6.6",
+    "graphql": "^0.10.1"
+  }
+}

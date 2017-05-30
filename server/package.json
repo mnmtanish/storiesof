@@ -1,7 +1,7 @@
 {
   "name": "storiesof-server",
   "version": "1.0.0",
-  "description": "GraphQL API to handle storybook build requests",
+  "description": "GraphQL API to publish storybooks to storiesof.io",
   "main": "index.js",
   "scripts": {
     "start": "PORT=4000 node index.js",

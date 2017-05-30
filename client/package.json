@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "CLI client and library to publish storybooks to storiesof.io",
   "main": "index.js",
+  "bin": {
+    "stories": "./bin/stories.js"
+  },
   "scripts": {
     "test": "jest"
   },
@@ -20,5 +23,6 @@
   },
   "homepage": "https://github.com/mnmtanish/storiesof#readme",
   "dependencies": {
+    "yargs": "^8.0.1"
   }
 }

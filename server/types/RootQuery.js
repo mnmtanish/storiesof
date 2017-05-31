@@ -1,4 +1,5 @@
 const { GraphQLNonNull, GraphQLObjectType, GraphQLString } = require('graphql');
+const { UserError } = require('graphql-errors')
 
 exports.RootQuery = new GraphQLObjectType({
     name: 'RootQuery',
@@ -18,9 +19,14 @@ exports.RootQuery = new GraphQLObjectType({
                 username: { type: new GraphQLNonNull(GraphQLString) },
                 password: { type: new GraphQLNonNull(GraphQLString) },
             },
-            resolve(root, args, ctx) {
+            async resolve(root, args, ctx) {
                 const { username, password } = args;
-                return ctx.UserService.getAuthToken(username, password);
+                try {
+                    const authToken = await ctx.UserService.getAuthToken(username, password);
+                    return authToken;
+                } catch(e) {
+                    throw new UserError('Unable to create a token. Please check the username and password.')
+                }
             },
         },
     }),

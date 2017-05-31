@@ -4,7 +4,7 @@
   "description": "GraphQL API to publish storybooks to storiesof.io",
   "main": "index.js",
   "scripts": {
-    "start": "PORT=4000 node index.js",
+    "start": "MONGO_URL=mongodb://localhost:27017/stories PORT=4000 JWT_SECRET=secret SMTP_URL=smtp://localhost:1025/?ignoreTLS=true node index.js",
     "test": "jest"
   },
   "repository": {
@@ -23,6 +23,12 @@
   "dependencies": {
     "express": "^4.15.3",
     "express-graphql": "^0.6.6",
-    "graphql": "^0.10.1"
+    "graphql": "^0.10.1",
+    "graphql-errors": "^2.1.0",
+    "jsonwebtoken": "^7.4.1",
+    "mongodb": "^2.2.27",
+    "nodemailer": "^4.0.1",
+    "npm-email": "^2.0.0",
+    "uuid": "^3.0.1"
   }
 }

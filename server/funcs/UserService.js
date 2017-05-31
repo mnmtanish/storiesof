@@ -12,7 +12,7 @@ exports.UserService = class UserService {
   }
 
   async register(username, password) {
-    const userEmail = await npmEmail(username);
+    const userEmail = await this._getNpmUserEmail(username);
     if (!userEmail) {
       throw new Error(`No npm user exists with name ${username}`);
     }
@@ -43,6 +43,14 @@ exports.UserService = class UserService {
   async getTokenUser(authToken) {
     const token = jwt.verify(authToken, this._jwtSecret, this._jwtOptions);
     return token.data.u;
+  }
+
+  async _getNpmUserEmail(username) {
+    try {
+      return await npmEmail(username);
+    } catch (err) {
+      return null;
+    }
   }
 
   async _getUserOrError(username, password) {

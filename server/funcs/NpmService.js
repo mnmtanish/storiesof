@@ -2,17 +2,22 @@ const npmUserPackages = require('npm-user-packages');
 
 exports.NpmService = class NpmService {
   async isPackageAuthor(username, packageName) {
-    const packages = await npmUserPackages(username);
-    if (!packages) {
-      throw new Error(`No npm user exists with name ${username}`);
-    }
+    const packages = await this._getNpmUserPackages(username);
     const packageInfo = packages.find(p => p.name === packageName);
     if (!packageInfo) {
-      throw new Error(`No npm package exists with name ${packageName} for user ${username}`);
+      return false;
     }
     if (!packageInfo.permissions !== 'write') {
-      throw new Error(`User ${username} doesn't have write access for package ${packageName}`);
+      return false;
     }
     return true;
+  }
+
+  async _getNpmUserPackages(username) {
+    try {
+      return await npmUserPackages(username);
+    } catch (err) {
+      return [];
+    }
   }
 };

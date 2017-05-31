@@ -18,6 +18,9 @@ async function main() {
     mongoUrl: process.env.MONGO_URL,
     jwtSecret: process.env.JWT_SECRET,
     smtpUrl: process.env.SMTP_URL,
+    gcsProject: process.env.GCS_PROJECT,
+    gcsKeyfile: process.env.GCS_KEYFILE,
+    gcsBucket: process.env.GCS_BUCKET,
   });
 
   app.use('/v1', graphqlHTTP({ context, schema, graphiql: true }));

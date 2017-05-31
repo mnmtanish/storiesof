@@ -4,7 +4,7 @@
   "description": "GraphQL API to publish storybooks to storiesof.io",
   "main": "index.js",
   "scripts": {
-    "start": "MONGO_URL=mongodb://localhost:27017/stories PORT=4000 JWT_SECRET=secret SMTP_URL=smtp://localhost:1025/?ignoreTLS=true node index.js",
+    "start": "MONGO_URL=mongodb://localhost:27017/stories PORT=4000 JWT_SECRET=secret SMTP_URL=smtp://localhost:1025/?ignoreTLS=true GCS_PROJECT=storiesof-io GCS_KEYFILE=gcs-keyfile.json GCS_BUCKET=storiesof.io node index.js",
     "lint": "prettier --single-quote --trailing-comma all --print-width 120 --write index.js {funcs,types}/**/*.js",
     "test": "jest"
   },
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/mnmtanish/storiesof#readme",
   "dependencies": {
+    "@google-cloud/storage": "^1.1.1",
     "express": "^4.15.3",
     "express-graphql": "^0.6.6",
     "graphql": "^0.10.1",

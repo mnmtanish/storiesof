@@ -1,4 +1,4 @@
-const { GraphQLBoolean, GraphQLNonNull, GraphQLObjectType, GraphQLString } = require('graphql');
+const { GraphQLBoolean, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLString } = require('graphql');
 const { UserError } = require('graphql-errors');
 
 exports.RootMutation = new GraphQLObjectType({
@@ -48,23 +48,24 @@ exports.RootMutation = new GraphQLObjectType({
       },
     },
 
-    // createUploadUrl returns a signed URL to upload the bundle to GCS.
+    // createUploadUrls returns a signed URL to upload the bundle to GCS.
     // This bundle will be extracted and deleted after it's uploaded.
-    createUploadUrl: {
-      type: new GraphQLNonNull(GraphQLString),
+    createUploadUrls: {
+      type: new GraphQLNonNull(new GraphQLList(GraphQLString)),
       args: {
         authToken: { type: new GraphQLNonNull(GraphQLString) },
         packageName: { type: new GraphQLNonNull(GraphQLString) },
         packageVersion: { type: new GraphQLNonNull(GraphQLString) },
+        bundleFilePaths: { type: new GraphQLNonNull(new GraphQLList(GraphQLString)) },
       },
       async resolve(root, args, ctx) {
-        const { authToken, packageName, packageVersion } = args;
+        const { authToken, packageName, packageVersion, bundleFilePaths } = args;
         const username = await ctx.UserService.getTokenUser(authToken);
         const isAuthor = await ctx.NpmService.isPackageAuthor(username, packageName);
         if (isAuthor !== true) {
           throw new UserError('User is not an owner of given npm package.');
         }
-        return ctx.StorageService.createUploadUrl(packageName, packageVersion);
+        return ctx.StorageService.createUploadUrls('npm', packageName, packageVersion, bundleFilePaths);
       },
     },
   }),

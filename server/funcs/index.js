@@ -1,5 +1,6 @@
 const { MongoClient } = require('mongodb');
 const nodemailer = require('nodemailer');
+const storage = require('@google-cloud/storage');
 const { NpmService } = require('./NpmService');
 const { StorageService } = require('./StorageService');
 const { UserService } = require('./UserService');
@@ -13,9 +14,16 @@ exports.createContext = async options => {
 
   const mailer = nodemailer.createTransport(options.smtpUrl);
 
+  const gcs = storage({
+    projectId: options.gcsProject,
+    keyFilename: options.gcsKeyfile,
+  });
+
+  const bucket = gcs.bucket(options.gcsBucket);
+
   ctx.version = options.package.version;
   ctx.NpmService = new NpmService();
-  ctx.StorageService = new StorageService();
+  ctx.StorageService = new StorageService(bucket);
   ctx.UserService = new UserService(userCol, mailer, options.jwtSecret);
 
   return ctx;

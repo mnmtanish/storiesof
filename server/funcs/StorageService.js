@@ -1,5 +1,5 @@
 exports.StorageService = class StorageService {
-  async getUploadUrl(packageName, packageVersion) {
+  async createUploadUrl(packageName, packageVersion) {
     return 'test-upload-url';
   }
 };

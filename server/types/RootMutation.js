@@ -64,7 +64,7 @@ exports.RootMutation = new GraphQLObjectType({
         if (isAuthor !== true) {
           throw new UserError('User is not an owner of given npm package.');
         }
-        return ctx.StorageService.getUploadUrl(packageName, packageVersion);
+        return ctx.StorageService.createUploadUrl(packageName, packageVersion);
       },
     },
   }),

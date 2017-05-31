@@ -48,7 +48,7 @@ exports.RootMutation = new GraphQLObjectType({
             },
         },
 
-        // createUploadUrl returns a signed URL to upload the bundle to S3/GCS.
+        // createUploadUrl returns a signed URL to upload the bundle to GCS.
         // This bundle will be extracted and deleted after it's uploaded.
         createUploadUrl: {
             type: new GraphQLNonNull(GraphQLString),

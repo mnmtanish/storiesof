@@ -7,7 +7,7 @@ exports.NpmService = class NpmService {
     if (!packageInfo) {
       return false;
     }
-    if (!packageInfo.permissions !== 'write') {
+    if (packageInfo.permissions !== 'write') {
       return false;
     }
     return true;
